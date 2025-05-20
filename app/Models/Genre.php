@@ -3,19 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Genre extends Model
 {
-    public static function getGenres()
-    {
-        $genres = [
-            ['id' => 1, 'name' => 'Fiction'],
-            ['id' => 2, 'name' => 'Non-Fiction'],
-            ['id' => 3, 'name' => 'Science Fiction'],
-            ['id' => 4, 'name' => 'Fantasy'],
-            ['id' => 5, 'name' => 'Mystery'],
-        ];
+    use HasFactory;
 
-        return $genres;
+    protected $fillable = ['name'];
+
+    public function books()
+    {
+        return $this->hasMany(Book::class);
     }
 }
