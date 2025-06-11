@@ -22,6 +22,12 @@ abstract class Controller
 
     public function sendError($message, $status, $errors = [])
     {
+        if (empty($errors)) {
+            return response()->json([
+                'status' => $status,
+                'message' => $message,
+            ], $status);
+        }
         return response()->json([
             'status' => $status,
             'message' => $message,
