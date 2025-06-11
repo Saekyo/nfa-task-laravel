@@ -9,11 +9,12 @@ class BookController extends Controller
 {
     public function index()
     {
-        // Fetch all books from the database
-        $books = Book::with(['author', 'genre'])->get();
-
-        // Return the view with the list of books
-        return view('books.index', compact('books'));
+        try {
+            $books = Book::with(['author', 'genre'])->get();
+            return $this->sendResponse('Books fetched successfully', 200, $books);
+        } catch (\Exception $e) {
+            return $this->sendError('Failed to fetch books', 500, ['error' => $e->getMessage()]);
+        }
     }
 
 }

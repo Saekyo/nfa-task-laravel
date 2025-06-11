@@ -9,8 +9,11 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $authors = Author::all();
-
-        return view('authors.index', compact('authors'));
+        try {
+            $authors = Author::with(['books'])->get();
+            return $this->sendResponse('Authors fetched successfully', 200, $authors);
+        } catch (\Exception $e) {
+            return $this->sendError('Failed to fetch authors', 500, ['error' => $e->getMessage()]);
+        }
     }
 }
