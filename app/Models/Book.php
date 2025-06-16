@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Author;
+use App\Models\Transaction;
 
 class Book extends Model
 {
@@ -26,5 +28,10 @@ class Book extends Model
     public function genre()
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

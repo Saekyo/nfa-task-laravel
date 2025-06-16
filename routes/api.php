@@ -20,7 +20,7 @@ Route::get('/authors/{id}', [AuthorController::class, 'show']);
 Route::get('/genres', [GenreController::class, 'index']);
 Route::get('/genres/{id}', [GenreController::class, 'show']);
 
-Route::middleware('auth:sanctum', 'admin')->group(function () {
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/books', [BookController::class, 'store']);
     Route::put('/books/{id}', [BookController::class, 'update']);
     Route::delete('/books/{id}', [BookController::class, 'destroy']);
@@ -30,4 +30,12 @@ Route::middleware('auth:sanctum', 'admin')->group(function () {
     Route::post('/genres', [GenreController::class, 'store']);
     Route::put('/genres/{id}', [GenreController::class, 'update']);
     Route::delete('/genres/{id}', [GenreController::class, 'destroy']);
+    Route::get('/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
+    Route::delete('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'destroy']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store']);
+    Route::get('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'show']);
+    Route::put('/transactions/{id}', [App\Http\Controllers\TransactionController::class, 'update']);
 });
